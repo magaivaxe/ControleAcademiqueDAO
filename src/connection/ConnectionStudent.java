@@ -20,7 +20,7 @@ public class ConnectionStudent
     //User name
     private static final String USER = "root";
     //Password
-    private static final String PASSWORD = "colocar";
+    private static final String PASSWORD = "mp09s02g00";
     //Object connection
     private static Connection connect;
     //Method connection

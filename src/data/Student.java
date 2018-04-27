@@ -1,63 +1,49 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
 /**
- *
- * @author eleves
+ * Class to receive and create students objects
+ * @author Marcos Gomes
  */
 public class Student
 {
-    //Class fields
-    private String id,prenom,nom,status;
+    private int id;
+    private String prenom,nom,status;
     private double miSession, projet, examenFinal, moyenne;
     
     private final double W_MI_SESSION = 0.3;
     private final double W_PROJET = 0.3;
     private final double W_EXAMEN_FINAL = 0.4;
     
-    /**
-     * 
-     */
-    public Student()
-    {
-    }
+    //Standard constructor to create a void object
+    public Student(){}
     
-    /**
-     * Parametric constructor
-     * @param id
-     * @param prenom
-     * @param nom
-     * @param miSession
-     * @param projet
-     * @param examenFinal
-     * @param moyenne
-     * @param status 
-     */
-    public Student(String id, 
-                   String prenom, 
-                   String nom, 
-                   double miSession, 
-                   double projet, 
-                   double examenFinal, 
-                   double moyenne, 
+    //Parametric constructor to receives values from database
+    public Student(int id,String prenom,String nom,double miSession,
+                   double projet,double examenFinal,double moyenne,
                    String status)
     {
-        this.id = id;
-        this.prenom = prenom;
-        this.nom = nom;
-        this.status = status;
-        this.miSession = miSession;
-        this.projet = projet;
-        this.examenFinal = examenFinal;
-        this.moyenne = moyenne;
+        this.id = id;this.prenom = prenom;this.nom = nom;this.status = status;
+        this.miSession = miSession;this.projet = projet;
+        this.examenFinal = examenFinal;this.moyenne = moyenne;
         this.status = status;
     }
 
-    public void setId(String id)
+    //Parametric constructor to insert values to database
+    public Student(int id, String prenom, String nom, double miSession,
+                   double projet, double examenFinal)
+    {
+        this.id = id;this.prenom = prenom;this.nom = nom;
+        this.miSession = miSession;this.projet = projet;
+        this.examenFinal = examenFinal;
+        //Calculate the average
+        this.moyenne = miSession * W_MI_SESSION 
+                     + projet * W_PROJET
+                     + examenFinal * W_EXAMEN_FINAL;
+        //Status value in moyenne function
+        this.status = moyenne >= 60 ? "succès":"échec";
+    }
+    
+    public void setId(int id)
     {
         this.id = id;
     }
@@ -67,22 +53,11 @@ public class Student
         this.prenom = prenom;
     }
 
-    public String getNom()
-    {
-        return nom;
-    }
-
     public void setNom(String nom)
     {
         this.nom = nom;
     }
     
-    
-    public void setStatus()
-    {
-        this.status = moyenne >= 60 ? "approuvé":"échec";
-    }
-
     public void setMiSession(double miSession)
     {
         this.miSession = miSession;
@@ -98,14 +73,7 @@ public class Student
         this.examenFinal = examenFinal;
     }
 
-    public void setMoyenne()
-    {
-        this.moyenne = this.miSession * W_MI_SESSION 
-                     + this.projet * W_PROJET
-                     + this.examenFinal * W_EXAMEN_FINAL;
-    }
-    
-    public String getId()
+    public int getId()
     {
         return id;
     }
@@ -114,12 +82,12 @@ public class Student
     {
         return prenom;
     }
-
-    public String getStatus()
+    
+    public String getNom()
     {
-        return status;
+        return nom;
     }
-
+   
     public double getMiSession()
     {
         return miSession;
@@ -139,19 +107,24 @@ public class Student
     {
         return moyenne;
     }
+    
+    public String getStatus()
+    {
+        return status;
+    }
 
     @Override
     public String toString()
     {
-        return "Student{" + "id=" + id 
+        return "Student{" 
+                + "id=" + id 
                 + ", prenom=" + prenom 
                 + ", nom=" + nom 
-                + ", status=" + status 
                 + ", miSession=" + miSession 
                 + ", projet=" + projet 
                 + ", examenFinal=" + examenFinal 
-                + ", moyenne=" + moyenne + '}';
+                + ", moyenne=" + moyenne 
+                + ", status=" + status 
+                + '}';
     }
-    
-    
 }

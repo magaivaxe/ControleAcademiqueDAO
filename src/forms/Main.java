@@ -5,6 +5,7 @@
  */
 package forms;
 
+import data.StudentDAO;
 import javax.swing.JFrame;
 
 /**
@@ -21,6 +22,10 @@ public class Main
     {
         mainForm = new MainForm();
         mainForm.setVisible(true);
+        
+        StudentDAO test = new StudentDAO();
+        
+        System.out.println(test.find("prenom", "not null", true));
     }
     
 }

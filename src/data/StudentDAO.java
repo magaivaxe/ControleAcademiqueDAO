@@ -1,66 +1,143 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
- * Class to do the queries to find, create (insert),
- * update and delete the datas
- * @author sire_auron
+ * Class to do the queries to find, create, update and delete the data.
+ * @author Marcos Gomes
  */
 public class StudentDAO extends DAO<Student>
 {
+    /**
+     * Method to do the queries:
+     * 1 - find a value by id or name;
+     * 2 - list all students from database.
+     * @param id_nom can be a value "id" or "nom".
+     * @param value can be a numerical string value for id and a character value 
+     * "''" for nom argument.
+     * @param all true for list all and false to find an id or name value
+     * @return a filled Student ArrayList
+     */
     @Override
-    public Student find(String id_Or_Nom, String parameter)
+    public ArrayList<Student> find(String id_nom, String value, Boolean all)
     {
-        //New void object to fill
         Student student = new Student();
+        ArrayList<Student> studentlist = new ArrayList<>();
+        ResultSet result;
         try
         {
-            //ResultSet object to receive the query result
-            ResultSet result = this.connect
-            .createStatement(
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, 
-                    ResultSet.CONCUR_UPDATABLE
-            ).executeQuery(
-                "SELECT * "
-              + "FROM students "
-              + "WHERE " + id_Or_Nom + " = " + parameter
-            );
-            if(result.first())
-            {
-                //New object downloaded from database
+            if (!all) {
+                result = this.connect
+                .createStatement(
+                        ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE)
+                .executeQuery(
+                        "SELECT * "
+                        + "FROM Student "
+                        + "WHERE " + id_nom + " = " + value);
+            }
+            else {
+                result = this.connect
+                .createStatement(
+                        ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE)
+                .executeQuery(
+                        "SELECT * "
+                        + "FROM Student");
+            }
+            //loop to fill the arraylist
+            while (result.next()) {
                 student = new Student(
-                        result.getString("id"),
+                        result.getInt("id"),
                         result.getString("prenom"),
                         result.getString("nom"),
                         result.getDouble("miSession"),
                         result.getDouble("projet"),
                         result.getDouble("examenFinal"),
                         result.getDouble("moyenne"),
-                        result.getString("status"));
+                        result.getString("statusFinal"));
+                studentlist.add(student);
             }
         }
         catch (SQLException e){e.printStackTrace();}
-        //Return the data fill class
-        return student;
+        return studentlist;
     }
 
     @Override
-    public Student create(Student obj)
+    public ArrayList<Student> create(ArrayList<Student> listObj)
     {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        try
+        {
+            for (Student std : listObj)
+            {
+                //Prepare the statement to execution
+                PreparedStatement prepare =
+                    this.connect.prepareStatement(
+                        "insert into "
+                        + "Student (prenom,nom,miSession,"
+                                + "projet,examenFinal,moyenne,statusFinal) "
+                                + "values (?,?,?,?,?,?,?)"
+                        ,Statement.RETURN_GENERATED_KEYS);
+                //Set the respectives objects values to the query
+                prepare.setString(1, std.getPrenom());
+                prepare.setString(2, std.getNom());
+                prepare.setDouble(3, std.getMiSession());
+                prepare.setDouble(4, std.getProjet());
+                prepare.setDouble(5, std.getExamenFinal());
+                prepare.setDouble(6, std.getMoyenne());
+                prepare.setString(7, std.getStatus());
+                //Execute the query by update
+                prepare.executeUpdate();
+                //get the generated key from the query on database
+                ResultSet result = prepare.getGeneratedKeys();
+                //If the result exists set the generated id on the database to
+                //Student object
+                if (result.first())
+                {std.setId(result.getInt("id"));}
+            }
+        }
+        catch (SQLException e) { e.printStackTrace();}
+        return listObj;
     }
 
     @Override
-    public Student upDate(Student obj)
+    public ArrayList<Student> upDate(ArrayList<Student> listObj)
     {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        ArrayList<Student> toReturn = new ArrayList<>();
+        ArrayList<Student> temp;
+        try
+        {
+            for (Student std : listObj)
+            {
+                PreparedStatement prepare =
+                this.connect.prepareStatement(
+                    "update Students "
+                    + "set miSession = ?, "
+                        + "projet = ?, "
+                        + "examenFinal = ?, "
+                        + "moyenne = ?, "
+                        + "statusFinal = ?, "
+                    + "where id = ?");
+                prepare.setDouble(1, std.getMiSession());
+                prepare.setDouble(2, std.getProjet());
+                prepare.setDouble(3, std.getExamenFinal());
+                prepare.setDouble(4, std.getMoyenne());
+                prepare.setString(5, std.getStatus());
+                prepare.setInt(6, std.getId());
+                //Execute the query
+                prepare.executeUpdate();
+                //Find data updated to return
+                temp = new ArrayList<>();
+                temp = this.find("id", String.valueOf(std.getId()), false);
+                toReturn.add(temp.get(0));
+            }
+        }
+        catch (SQLException e){e.printStackTrace();}
+        return toReturn;
     }
 
     @Override
