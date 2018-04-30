@@ -17,5 +17,5 @@ public abstract class DAO<T>
     
     public abstract ArrayList<T> upDate(ArrayList<T> listObj);
     
-    public abstract void delete(T obj);
+    public abstract void delete(ArrayList<T> listObj);
 }

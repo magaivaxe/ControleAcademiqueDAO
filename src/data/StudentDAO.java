@@ -141,9 +141,25 @@ public class StudentDAO extends DAO<Student>
     }
 
     @Override
-    public void delete(Student obj)
+    public void delete(ArrayList<Student> listObj)
     {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        try
+        {
+            for (Student std : listObj)
+            {
+                this.connect
+                    .createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                     ResultSet.CONCUR_UPDATABLE
+                    ).executeUpdate(
+                            "delete from Students"
+                                + "where id = "
+                                + std.getId()
+                    );
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
-    
 }
