@@ -5,38 +5,24 @@
  */
 package listeners;
 
-import data.Student;
-import data.StudentDAO;
+
 import forms.MainForm;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 /**
  *
  * @author sire_marcos
  */
-public class OpenListener implements ActionListener
+public class OpenListener extends BaseListeners
 {
-    //Fields
-    private final String VIDE = "";
-    private final boolean ALL = true;
-    //Objects assignments
-    StudentDAO std;
-    ArrayList<Student> list;
-    MainForm myForm;
-    
-    //Method to fill Maintable 
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        //Objects instantiation
-        std = new StudentDAO();
-        list = new ArrayList();
-        myForm = MainForm.getCurrent();
+        //Variables
+        final String VIDE = "";
+        final boolean ALL = true;
         
         list = std.find(VIDE, VIDE, ALL);
         myForm.getMyTable().setRows(list, list.size());
     }
-    
 }
