@@ -66,7 +66,11 @@ public class StudentDAO extends DAO<Student>
         catch (SQLException e){e.printStackTrace();}
         return studentlist;
     }
-
+    /**
+     * 
+     * @param listObj
+     * @return 
+     */
     @Override
     public ArrayList<Student> create(ArrayList<Student> listObj)
     {
@@ -103,7 +107,11 @@ public class StudentDAO extends DAO<Student>
         catch (SQLException e) { e.printStackTrace();}
         return listObj;
     }
-
+    /**
+     * 
+     * @param listObj
+     * @return 
+     */
     @Override
     public ArrayList<Student> upDate(ArrayList<Student> listObj)
     {
@@ -139,7 +147,11 @@ public class StudentDAO extends DAO<Student>
         catch (SQLException e){e.printStackTrace();}
         return toReturn;
     }
-
+    /**
+     * 
+     * @param listObj
+     * @return 
+     */
     @Override
     public ArrayList<Student> delete(ArrayList<Student> listObj)
     {

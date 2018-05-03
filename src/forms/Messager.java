@@ -20,11 +20,20 @@ public class Messager extends JOptionPane
         super();
     }
     
+    /**
+     * 
+     * @param msg 
+     */
     public void msgBox(String msg)
     {
         showMessageDialog(null, msg);
     }
     
+    /**
+     * 
+     * @param msg
+     * @return 
+     */
     public int confirBox(String msg)
     {
         int r = showConfirmDialog(null, msg,TITLE,

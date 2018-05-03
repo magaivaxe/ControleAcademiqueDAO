@@ -26,7 +26,9 @@ public class MainTable extends DefaultTableModel
         "Moyenne",
         "Status"
     };
-    //Constructor
+    /**
+     * 
+     */
     public MainTable()
     {
         super();
@@ -34,7 +36,11 @@ public class MainTable extends DefaultTableModel
         this.setColumnIdentifiers(columnNames);
         this.setRowCount(0);
     }
-    
+    /**
+     * 
+     * @param list
+     * @param actualLength 
+     */
     public void setRows(ArrayList<Student> list, int actualLength)
     {
         this.setRowCount(0);

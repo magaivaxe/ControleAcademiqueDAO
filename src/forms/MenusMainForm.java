@@ -36,6 +36,9 @@ public class MenusMainForm extends JMenuBar
         init();
     }
     
+    /**
+     * 
+     */
     private void init()
     {
         //JMenu Fichier and yours JMenuItens

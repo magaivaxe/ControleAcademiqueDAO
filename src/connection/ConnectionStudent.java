@@ -24,7 +24,10 @@ public class ConnectionStudent
     private static final String PASSWORD = "mp09s02g00";
     //Object connection
     private static Connection connect;
-    //Method connection
+    /**
+     * 
+     * @return 
+     */
     public static Connection getInstance()
     {
         if (connect == null){
