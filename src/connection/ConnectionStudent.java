@@ -15,8 +15,9 @@ import java.sql.SQLException;
  */
 public class ConnectionStudent
 {
+    private static String dataBase = "studentDB";
     //URL connection
-    private static final String URL = "jdbc:mysql://localhost/studentDB";
+    private static String URL = "jdbc:mysql://localhost/" + dataBase;
     //User name
     private static final String USER = "root";
     //Password
@@ -36,4 +37,16 @@ public class ConnectionStudent
         }
         return connect;
     }
+
+    public static String getDataBase()
+    {
+        return dataBase;
+    }
+
+    public static void setDataBase(String dataBase)
+    {
+        ConnectionStudent.dataBase = dataBase;
+    }
+    
+    
 }
