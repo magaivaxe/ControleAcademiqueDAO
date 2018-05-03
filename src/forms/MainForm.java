@@ -5,6 +5,7 @@
  */
 package forms;
 
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -30,6 +31,10 @@ public class MainForm extends JFrame
     private JScrollPane scrollPane;
     private MainTable myTable;
     private JTable jTable;
+    /*
+    This static object is used to access to same object by listeners or others
+    to modify it by getters. Without it the access is impossible. 
+    */
     static MainForm current;
     
     /**
@@ -59,5 +64,22 @@ public class MainForm extends JFrame
         contentPane.add(scrollPane);
         
     }
+
+    public MainTable getMyTable()
+    {
+        return myTable;
+    }
+
+    public JTable getjTable()
+    {
+        return jTable;
+    }
+    
+    public static MainForm getCurrent()
+    {
+        return current;
+    }
+    
+    
     
 }

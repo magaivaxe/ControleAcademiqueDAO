@@ -141,8 +141,9 @@ public class StudentDAO extends DAO<Student>
     }
 
     @Override
-    public void delete(ArrayList<Student> listObj)
+    public ArrayList<Student> delete(ArrayList<Student> listObj)
     {
+        ArrayList<Student> toReturn = new ArrayList<>();
         try
         {
             for (Student std : listObj)
@@ -156,10 +157,12 @@ public class StudentDAO extends DAO<Student>
                                 + std.getId()
                     );
             }
+            toReturn = find("", "", true);
         }
         catch (SQLException e)
         {
             e.printStackTrace();
         }
+        return toReturn;
     }
 }

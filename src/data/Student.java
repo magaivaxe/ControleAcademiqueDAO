@@ -73,6 +73,17 @@ public class Student
         this.examenFinal = examenFinal;
     }
 
+    public void setStatus(String status)
+    {
+        this.status = status;
+    }
+
+    public void setMoyenne(double moyenne)
+    {
+        this.moyenne = moyenne;
+    }
+    
+
     public int getId()
     {
         return id;

@@ -58,14 +58,28 @@ public class MainTable extends DefaultTableModel
      * @param row - Current row
      * @return Line object with all data from the current row
      */
-    public Object[] getRow(int row)
+    public ArrayList<Student> getRow(int [] row)
     {
-        Object[] line = new Object[columnNames.length];
-        for (int i = 0; i < columnNames.length; i++)
+        ArrayList<Student> toReturn = new ArrayList();
+        for (int j = 0; j < row.length; j++)
         {
-            line[i] = this.getValueAt(row, i);
+            Student student = new Student();
+            String[] line = new String[columnNames.length];
+            for (int i = 0; i < columnNames.length; i++)
+            {
+                line[i] = this.getValueAt(row[j], i).toString();
+            }
+            student.setId(Integer.parseInt(line[0])); 
+            student.setPrenom((line[1]));
+            student.setNom(line[2]);
+            student.setMiSession(Double.parseDouble(line[3]));
+            student.setProjet(Double.parseDouble(line[4]));
+            student.setExamenFinal(Double.parseDouble(line[4]));
+            student.setMoyenne(Double.parseDouble(line[4]));
+            student.setStatus(line[7]);
+            toReturn.add(student);
         }
-        return line;
+        return toReturn;
     }
     
 }

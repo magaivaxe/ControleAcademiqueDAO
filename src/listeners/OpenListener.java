@@ -7,7 +7,7 @@ package listeners;
 
 import data.Student;
 import data.StudentDAO;
-import forms.MainTable;
+import forms.MainForm;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class OpenListener implements ActionListener
     //Objects assignments
     StudentDAO std;
     ArrayList<Student> list;
-    MainTable myTable;
+    MainForm myForm;
     
     //Method to fill Maintable 
     @Override
@@ -33,10 +33,10 @@ public class OpenListener implements ActionListener
         //Objects instantiation
         std = new StudentDAO();
         list = new ArrayList();
-        myTable = new MainTable();
+        myForm = MainForm.getCurrent();
         
         list = std.find(VIDE, VIDE, ALL);
-        myTable.setRows(list, list.size());
+        myForm.getMyTable().setRows(list, list.size());
     }
     
 }

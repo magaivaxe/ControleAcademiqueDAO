@@ -11,6 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
+import listeners.DelListener;
 import listeners.OpenListener;
 
 /**
@@ -28,6 +29,7 @@ public class MenusMainForm extends JMenuBar
     private JSeparator separator;
     //Objects assignments
     private OpenListener openListener;
+    private DelListener delListener;
     
     public MenusMainForm()
     {
@@ -76,6 +78,8 @@ public class MenusMainForm extends JMenuBar
         
         supprimer = new JMenuItem();
         supprimer.setText("Supprimer");
+        delListener = new DelListener();
+        supprimer.addActionListener(delListener);
         
         edition = new JMenu();
         edition.setText("Édition");
