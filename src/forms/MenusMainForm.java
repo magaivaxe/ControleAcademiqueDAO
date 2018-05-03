@@ -6,10 +6,12 @@
 package forms;
 
 
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
+import listeners.OpenListener;
 
 /**
  *
@@ -22,8 +24,10 @@ public class MenusMainForm extends JMenuBar
     //JMenuItens attributions 
     private JMenuItem nouveau, ouvrir, enregistrer,enregistrerSous,fermer,ajouter,
     modifier,supprimer,rechercher,lister,id,nom,propos;
-    //Others
+    //Others menu itens
     private JSeparator separator;
+    //Objects assignments
+    private OpenListener openListener;
     
     public MenusMainForm()
     {
@@ -38,6 +42,8 @@ public class MenusMainForm extends JMenuBar
         
         ouvrir = new JMenuItem();
         ouvrir.setText("Ouvrir");
+        openListener = new OpenListener();
+        ouvrir.addActionListener(openListener);
         
         enregistrer = new JMenuItem();
         enregistrer.setText("Enregistrer");

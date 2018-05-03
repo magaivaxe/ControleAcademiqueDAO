@@ -1,0 +1,71 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package forms;
+
+
+import data.Student;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
+/**
+ *
+ * @author eleves
+ */
+public class MainTable extends DefaultTableModel
+{
+    private String [] columnNames = {
+        "ID",
+        "Prénom",
+        "Nom",
+        "Mi-session",
+        "Projet",
+        "Examen Final",
+        "Moyenne",
+        "Status"
+    };
+    //Constructor
+    public MainTable()
+    {
+        super();
+        this.setColumnCount(columnNames.length);
+        this.setColumnIdentifiers(columnNames);
+        this.setRowCount(0);
+    }
+    
+    public void setRows(ArrayList<Student> list, int actualLength)
+    {
+        this.setRowCount(0);
+        for (int i = 0; i < actualLength; i++)
+        {
+            Object [] line = new Object[columnNames.length];
+            line[0] = list.get(i).getId();
+            line[1] = list.get(i).getPrenom();
+            line[2] = list.get(i).getNom();
+            line[3] = list.get(i).getMiSession();
+            line[4] = list.get(i).getProjet();
+            line[5] = list.get(i).getExamenFinal();
+            line[6] = list.get(i).getMoyenne();
+            line[7] = list.get(i).getStatus();
+            this.addRow(line);
+        }
+    }
+    /**
+     * Method to get the data from the current row. It create an Object[] line
+     * to get values from a specific row.
+     * @param row - Current row
+     * @return Line object with all data from the current row
+     */
+    public Object[] getRow(int row)
+    {
+        Object[] line = new Object[columnNames.length];
+        for (int i = 0; i < columnNames.length; i++)
+        {
+            line[i] = this.getValueAt(row, i);
+        }
+        return line;
+    }
+    
+}
